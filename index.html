@@ -6,7 +6,7 @@
   function tenPrint() {
     const hue = nn.random(360)
     const clr = nn.hsl(hue, 100, 20)
-    const chars = '─ │ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼'
+    const chars = ' ↼ ↡ ↢ ↯ ↫ ↭ ↨ ☃ ☈ ☯'
     let pattern = ''
     nn.times(600, () => pattern += nn.random(chars))
     nn.get('body')
