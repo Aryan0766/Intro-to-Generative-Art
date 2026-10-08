@@ -1,22 +1,22 @@
 <script src="js/nn.min.js"></script>
 <script>
   /* global nn */
-  let fg, bg
+  let textColor, backgroundColor
 
   function setup () {
     // pick two random colors
-    fg = nn.randomColor()
-    bg = nn.randomColor()
+    textColor = nn.randomColor()
+    backgroundColor = nn.randomColor()
     // ensure WCGA AA conlor contrast
-    while (nn.colorContrast(fg, bg) < 4.5) {
-      fg = nn.randomColor()
+    while (nn.colorContrast(textColor, backgroundColor) < 4.5) {
+      textColor = nn.randomColor()
     }
     // update body's content and styles
     nn.get('body')
       .content('Hi World Wide Web!')
       .css({ 
-        color: fg, 
-        background: bg,
+        color: textColor, 
+        background: backgroundColor,
         overflow: 'hidden',
         height: '100vh',
         display: 'grid',
@@ -25,7 +25,7 @@
         fontSize: 72
       })
     // run the createGif function 50 times
-    nn.times(100, createGif)
+    nn.times(150, createGif)
   }
   
   function createGif () {
@@ -33,15 +33,19 @@
     const x = nn.random(-100, nn.width + 100)
     const y = nn.random(-100, nn.height + 100)
     const r = nn.random(360)
-    const c = nn.toHSL(fg)
+    const c = nn.toHSL(textColor)
     // create an img element for our butterfly gif
     nn.create('img')
-      .set('src', 'Intro-to-Genrative-Art/css/images/cat.gif')
+      .set('src', 'images/cat.gif')
+      .addTo('body')
+      .position(x, y)
       .rotate(r)
       .hueRotate(60 - c.h)
       .saturate(c.s / 100)
-      .brightness(c.l / 100)
+      .brightness(c.l / 42)
       .css({
+        position: 'absolute',
+        width: 45,
         cursor: 'grab',
         userSelect: 'none',
         transition: 'all 1.5s ease-out'
