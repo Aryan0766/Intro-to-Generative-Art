@@ -1,4 +1,4 @@
-<script src="nn.min.js"></script>
+<script src="js/nn.min.js"></script>
 <script>
   /* global nn */
   let fg, bg
@@ -36,9 +36,7 @@
     const c = nn.toHSL(fg)
     // create an img element for our butterfly gif
     nn.create('img')
-      .set('src', 'butterfly.gif')
-      .addTo('body')
-      .position(x, y)
+      .set('src', 'Intro-to-Genrative-Art/css/images/cat.gif')
       .rotate(r)
       .hueRotate(60 - c.h)
       .saturate(c.s / 100)
