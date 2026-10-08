@@ -1,16 +1,72 @@
+<style>
+  body {
+    margin: 0;
+    display: flex;
+  }
+
+  #left,
+  #right {
+    width: 375px;
+    height: 400px;
+    overflow: hidden;
+  }
+</style>
+
+<div id="left"></div>
+<div id="right"></div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.14/two.min.js"></script>
 <script>
-  /* global p5 */
+  /* global p5, Two */
+
   const sketch = (p) => {
     p.setup = () => {
-      p.createCanvas(600, 600)
-      p.background(154, 117, 240)
+      // canvas size and background color
+      p.createCanvas(375, 400)
+      p.background(17, 104, 245)
+      p.rectMode(p.CENTER)
     }
 
     p.draw = () => {
-      p.fill(20, 242, 224)
-      p.ellipse(p.mouseX, p.mouseY, 50, 50)
+      // ew shape color
+      p.fill(255, 200, 0)
+      // new shape
+      p.rect(p.mouseX, p.mouseY, 50, 50)
     }
   }
-  new p5(sketch)
+  new p5(sketch, 'left')
+
+  // RIGHT HALF: 
+
+  const rightEl = document.getElementById('right')
+  const two = new Two({
+    width: 375,
+    height: 400,
+    autostart: true
+  }).appendTo(rightEl)
+  let stars = []
+
+  // remix 1- background
+  const bg = two.makeRectangle(187.5, 200, 375, 400)
+  bg.fill = '#101030'
+  bg.noStroke()
+
+  rightEl.addEventListener('mousemove', (e) => {
+    const box = rightEl.getBoundingClientRect()
+    const x = e.clientX - box.left
+    const y = e.clientY - box.top
+
+    const star = two.makeStar(x, y, 20, 10, 5)
+    // remix 4- random color
+    star.fill = `hsl(${Math.random() * 360}, 90%, 60%)`
+    star.noStroke()
+    stars.push(star)
+  })
+
+  // remix 5-click to clear
+  rightEl.addEventListener('click', () => {
+    stars.forEach((s) => two.remove(s))
+    stars = []
+  })
 </script>
